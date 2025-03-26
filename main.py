@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 def is_shorten_link(token, url):
     parsed_url = urlparse(url)
     if parsed_url.netloc == "vk.cc":
-        return True  # Считаем, что ссылка уже сокращена
+        return True
 
     response = requests.get(
         "https://api.vk.com/method/utils.checkLink",
@@ -78,10 +78,9 @@ def main():
     token = os.environ.get("VK_API_TOKEN")
 
     if not token:
-        print("Ошибка: Токен доступа не найден. Убедитесь, что он указан в файле .env.")
+        print("Ошибка: Токен не найден")
         exit(1)
 
-    # Настройка argparse
     parser = argparse.ArgumentParser(description="Сокращение ссылок и подсчёт кликов через VK API")
     parser.add_argument("url", help="Ссылка для обработки")
     args = parser.parse_args()
