@@ -1,14 +1,18 @@
 import argparse
 import requests
 import os
+import sys
 from dotenv import load_dotenv
 from urllib.parse import urlparse
 
 
 def is_shorten_link(token, url):
     parsed_url = urlparse(url)
-    if parsed_url.netloc == "vk.cc":
-        return True
+    if parsed_url.netloc != "vk.cc":
+        return False
+
+    if not parsed_url.path.strip("/"):
+        return False
 
     response = requests.get(
         "https://api.vk.com/method/utils.checkLink",
@@ -79,7 +83,7 @@ def main():
 
     if not token:
         print("Ошибка: Токен не найден")
-        exit(1)
+        sys.exit(1)
 
     parser = argparse.ArgumentParser(description="Сокращение ссылок и подсчёт кликов через VK API")
     parser.add_argument("url", help="Ссылка для обработки")
@@ -99,7 +103,7 @@ def main():
     except KeyboardInterrupt:
         print("\nПрограмма прервана пользователем.")
     finally:
-        exit(1)
+        sys.exit(1)
 
 
 if __name__ == "__main__":
