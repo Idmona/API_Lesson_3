@@ -83,7 +83,6 @@ def main():
 
     if not token:
         print("Ошибка: Токен не найден")
-        sys.exit(1)
 
     parser = argparse.ArgumentParser(description="Сокращение ссылок и подсчёт кликов через VK API")
     parser.add_argument("url", help="Ссылка для обработки")
@@ -102,8 +101,6 @@ def main():
         print(f"Ошибка ввода: {str(e)}")
     except KeyboardInterrupt:
         print("\nПрограмма прервана пользователем.")
-    finally:
-        sys.exit(1)
 
 
 if __name__ == "__main__":
